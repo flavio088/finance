@@ -1,0 +1,21 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "build:ts": "tsc",
+  "watch:ts": "tsc --watch",
+  "build:sass": "sass src/scss:public/css",
+  "watch:sass": "sass --watch src/scss:public/css",
+  "build": "npm run build:ts && npm run build:sass"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "sass": "^1.103.0",
+    "typescript": "^7.0.2"
+  }
+}
