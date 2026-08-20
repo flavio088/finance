@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express, { Application } from "express";
 import healthRouter from "./routes/health.routes.js";
+import authRouter from "./routes/auth.routes.js";
 import pool from "./config/database.js";
 
 const app: Application = express();
@@ -11,6 +12,7 @@ app.use(express.json());
 
 // Rotas
 app.use(healthRouter);
+    app.use(authRouter);
 
 // Testar conexão com o banco
 pool.query("SELECT NOW()").then((result) => {
