@@ -1,4 +1,17 @@
+import "dotenv/config";
+import express, { Application } from "express";
+import healthRouter from "./routes/health.routes.js";
+
+const app: Application = express();
 const PORT = process.env.PORT ?? 3001;
 
-console.log(`Servidor FINANCE iniciando na porta ${PORT}...`);
-console.log("Backend configurado com sucesso.");
+// Middlewares globais
+app.use(express.json());
+
+// Rotas
+app.use(healthRouter);
+
+// Iniciar servidor
+app.listen(PORT, () => {
+  console.log(`Servidor FINANCE rodando em http://localhost:${PORT}`);
+});
