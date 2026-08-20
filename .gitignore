@@ -23,3 +23,9 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# Backend compilado
+backend/dist/
+
+# Variáveis de ambiente do backend
+backend/.env
