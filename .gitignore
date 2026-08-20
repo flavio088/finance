@@ -29,3 +29,6 @@ backend/dist/
 
 # Variáveis de ambiente do backend
 backend/.env
+
+# Garantia extra para arquivos de ambiente
+backend/private.env
