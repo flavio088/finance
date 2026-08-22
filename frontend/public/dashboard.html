@@ -85,15 +85,66 @@
         </section>
 
         <!-- Página: Saídas-->
-        <section id="page-expense" style="display:none">
-          <div class="page-header">
-            <h1 class="page-header__title">Nova Saída</h1>
-            <p class="page-header__subtitle">Registre um gasto</p>
-          </div>
-          <div class="card">
-            <p style="color: var(--color-text-muted)">Em construção...</p>
-          </div>
-        </section>
+<section id="page-expense" style="display:none">
+  <div class="page-header">
+    <h1 class="page-header__title">Nova Saída</h1>
+    <p class="page-header__subtitle">Registre um gasto</p>
+  </div>
+
+  <div class="card">
+    <form id="expense-form" novalidate>
+      <div class="transaction-form__grid">
+        <div class="field-group">
+          <label for="expense-amount">Valor (R$)</label>
+          <input
+            type="number"
+            id="expense-amount"
+            placeholder="0,00"
+            min="0.01"
+            step="0.01"
+            required
+          />
+        </div>
+
+        <div class="field-group">
+          <label for="expense-date">Data</label>
+          <input
+            type="date"
+            id="expense-date"
+            required
+          />
+        </div>
+
+        <div class="field-group">
+          <label for="expense-payment">Forma de pagamento</label>
+          <select id="expense-payment" required>
+            <option value="">Selecione...</option>
+            <option value="debit">Débito</option>
+            <option value="credit">Crédito</option>
+            <option value="pix">PIX</option>
+            <option value="cash">Dinheiro</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="expense-description">Descrição</label>
+          <input
+            type="text"
+            id="expense-description"
+            placeholder="Ex: Supermercado, Conta de luz..."
+            required
+          />
+        </div>
+      </div>
+
+      <div class="feedback-message" id="expense-feedback"></div>
+
+      <button type="submit" class="btn-submit" id="expense-btn">
+        Registrar saída
+      </button>
+    </form>
+  </div>
+</section>
 
         <!-- Página: Histórico-->
         <section id="page-history" style="display:none">

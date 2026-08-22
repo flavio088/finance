@@ -102,3 +102,58 @@ incomeForm.addEventListener("submit", async (event: SubmitEvent) => {
     incomeBtn.textContent = "Registrar entrada";
   }
 });
+
+// Formulário de saídas
+const expenseForm = document.getElementById("expense-form") as HTMLFormElement;
+const expenseFeedback = document.getElementById("expense-feedback") as HTMLDivElement;
+const expenseBtn = document.getElementById("expense-btn") as HTMLButtonElement;
+
+expenseForm.addEventListener("submit", async (event: SubmitEvent) => {
+  event.preventDefault();
+
+  const amount = (document.getElementById("expense-amount") as HTMLInputElement).value;
+  const date = (document.getElementById("expense-date") as HTMLInputElement).value;
+  const description = (document.getElementById("expense-description") as HTMLInputElement).value;
+  const paymentMethod = (document.getElementById("expense-payment") as HTMLSelectElement).value;
+
+  if (!amount || !date || !description || !paymentMethod) {
+    showFeedback(expenseFeedback, "Preencha todos os campos.", "error");
+    return;
+  }
+
+  expenseBtn.disabled = true;
+  expenseBtn.textContent = "Registrando...";
+
+  try {
+    const response = await fetch("http://localhost:3001/transactions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        type: "expense",
+        amount: Number(amount),
+        description,
+        paymentMethod,
+        date,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      showFeedback(expenseFeedback, data.error ?? "Erro ao registrar saída.", "error");
+      return;
+    }
+
+    showFeedback(expenseFeedback, "Saída registrada com sucesso!", "success");
+    expenseForm.reset();
+
+  } catch {
+    showFeedback(expenseFeedback, "Não foi possível conectar ao servidor.", "error");
+  } finally {
+    expenseBtn.disabled = false;
+    expenseBtn.textContent = "Registrar saída";
+  }
+});
