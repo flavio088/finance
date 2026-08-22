@@ -32,3 +32,7 @@ backend/.env
 
 # Garantia extra para arquivos de ambiente
 backend/private.env
+
+# Frontend compilado
+frontend/public/js/
+frontend/public/css/
