@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { CreateUserDTO, User } from "../models/user.model.js";
 import { findUserByEmail, createUser } from "../repositories/user.repository.js";
 
@@ -21,4 +22,32 @@ export async function registerUser(data: CreateUserDTO): Promise<Omit<User, "pas
 
   const { password: _, ...userWithoutPassword } = user;
   return userWithoutPassword;
+}
+
+export async function loginUser(
+  email: string,
+  password: string
+): Promise<{ token: string; user: Omit<User, "password"> }> {
+  const user = await findUserByEmail(email);
+
+  if (!user) {
+    throw new Error("Credenciais inválidas.");
+  }
+
+  const passwordMatch = await bcrypt.compare(password, user.password);
+
+  if (!passwordMatch) {
+    throw new Error("Credenciais inválidas.");
+  }
+
+  const secret = process.env.JWT_SECRET;
+
+  if (!secret) {
+    throw new Error("JWT_SECRET não configurado.");
+  }
+
+  const token = jwt.sign({ id: user.id }, secret, { expiresIn: "7d" });
+
+  const { password: _, ...userWithoutPassword } = user;
+  return { token, user: userWithoutPassword };
 }
