@@ -33,7 +33,7 @@ function validateForm(): boolean {
   return valid;
 }
 
-form.addEventListener("submit", (event: SubmitEvent) => {
+async function handleLogin(event: SubmitEvent): Promise<void> {
   event.preventDefault();
 
   if (!validateForm()) return;
@@ -41,13 +41,38 @@ form.addEventListener("submit", (event: SubmitEvent) => {
   loginBtn.disabled = true;
   loginBtn.textContent = "Entrando...";
 
-  // Por enquanto apenas simula — a integração real vem na Etapa 10
-  setTimeout(() => {
+  try {
+    const response = await fetch("http://localhost:3001/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: emailInput.value,
+        password: passwordInput.value,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      showError(emailError);
+      emailError.textContent = data.error ?? "Erro ao fazer login.";
+      return;
+    }
+
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+
+    window.location.href = "/dashboard.html";
+
+  } catch {
+    showError(emailError);
+    emailError.textContent = "Não foi possível conectar ao servidor.";
+  } finally {
     loginBtn.disabled = false;
     loginBtn.textContent = "Entrar";
-    console.log("Credenciais:", {
-      email: emailInput.value,
-      password: passwordInput.value,
-    });
-  }, 1000);
-});
+  }
+}
+
+form.addEventListener("submit", handleLogin);
