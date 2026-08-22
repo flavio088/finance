@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FINANCE — Dashboard</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar__logo">FINANCE</div>
+        <nav class="sidebar__nav">
+          <button class="sidebar__link sidebar__link--active" data-page="income">
+            ↑ Entradas
+          </button>
+          <button class="sidebar__link" data-page="expense">
+            ↓ Saídas
+          </button>
+          <button class="sidebar__link" data-page="history">
+            ≡ Histórico
+          </button>
+        </nav>
+        <div class="sidebar__logout">
+          <button class="sidebar__link" id="logout-btn">
+            ← Sair
+          </button>
+        </div>
+      </aside>
+
+      <!-- Conteúdo principal -->
+      <main class="main-content">
+
+        <!-- Página: Entradas -->
+        <section id="page-income">
+          <div class="page-header">
+            <h1 class="page-header__title">Nova Entrada</h1>
+            <p class="page-header__subtitle">Registre um recebimento</p>
+          </div>
+
+          <div class="card">
+            <form id="income-form" novalidate>
+              <div class="transaction-form__grid">
+                <div class="field-group">
+                  <label for="income-amount">Valor (R$)</label>
+                  <input
+                    type="number"
+                    id="income-amount"
+                    placeholder="0,00"
+                    min="0.01"
+                    step="0.01"
+                    required
+                  />
+                </div>
+
+                <div class="field-group">
+                  <label for="income-date">Data</label>
+                  <input
+                    type="date"
+                    id="income-date"
+                    required
+                  />
+                </div>
+
+                <div class="field-group transaction-form__full">
+                  <label for="income-description">Descrição</label>
+                  <input
+                    type="text"
+                    id="income-description"
+                    placeholder="Ex: Salário, Freelance..."
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="feedback-message" id="income-feedback"></div>
+
+              <button type="submit" class="btn-submit" id="income-btn">
+                Registrar entrada
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <!-- Página: Saídas-->
+        <section id="page-expense" style="display:none">
+          <div class="page-header">
+            <h1 class="page-header__title">Nova Saída</h1>
+            <p class="page-header__subtitle">Registre um gasto</p>
+          </div>
+          <div class="card">
+            <p style="color: var(--color-text-muted)">Em construção...</p>
+          </div>
+        </section>
+
+        <!-- Página: Histórico-->
+        <section id="page-history" style="display:none">
+          <div class="page-header">
+            <h1 class="page-header__title">Histórico</h1>
+            <p class="page-header__subtitle">Seus lançamentos</p>
+          </div>
+          <div class="card">
+            <p style="color: var(--color-text-muted)">Em construção...</p>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <script type="module" src="js/dashboard.js"></script>
+  </body>
+</html>

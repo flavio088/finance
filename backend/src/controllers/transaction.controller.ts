@@ -1,0 +1,42 @@
+import { Response } from "express";
+import { AuthenticatedRequest } from "../models/auth.model.js";
+import { createTransactionService } from "../services/transaction.service.js";
+import { TransactionType, PaymentMethod } from "../models/transaction.model.js";
+
+export async function createTransaction(
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> {
+  const userId = req.userId;
+
+  if (!userId) {
+    res.status(401).json({ error: "Usuário não autenticado." });
+    return;
+  }
+
+  const { type, amount, description, paymentMethod, date } = req.body;
+
+  if (!type || !amount || !description || !date) {
+    res.status(400).json({ error: "Tipo, valor, descrição e data são obrigatórios." });
+    return;
+  }
+
+  try {
+    const transaction = await createTransactionService({
+      userId,
+      type: type as TransactionType,
+      amount: Number(amount),
+      description,
+      paymentMethod: paymentMethod as PaymentMethod | undefined,
+      date,
+    });
+
+    res.status(201).json({ message: "Transação registrada com sucesso.", transaction });
+  } catch (err) {
+    if (err instanceof Error) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.status(500).json({ error: "Erro interno do servidor." });
+  }
+}

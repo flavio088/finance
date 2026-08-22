@@ -1,4 +1,6 @@
 @use 'variables' as *;
+@use 'dashboard';
+@use 'transactions';
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
@@ -17,7 +19,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('../images/bg-login.png');
+  background-image: url('../images/background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
