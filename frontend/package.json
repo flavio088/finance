@@ -8,7 +8,9 @@
   "watch:ts": "tsc --watch",
   "build:sass": "sass src/scss:public/css",
   "watch:sass": "sass --watch src/scss:public/css",
-  "build": "npm run build:ts && npm run build:sass"
+  "build": "npm run build:ts && npm run build:sass",
+  "test": "vitest run",
+  "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",
