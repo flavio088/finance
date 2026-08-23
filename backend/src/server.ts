@@ -9,9 +9,6 @@ import pool from "./config/database.js";
 const app: Application = express();
 const PORT = process.env.PORT ?? 3001;
 
-// Middlewares globais
-app.use(express.json());
-
 app.use(cors({
   origin: "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -23,12 +20,18 @@ app.use(healthRouter);
 app.use(authRouter);
 app.use(transactionRouter);
 
-pool.query("SELECT NOW()").then((result) => {
-  console.log("Banco de dados conectado:", result.rows[0].now);
-}).catch((err) => {
-  console.error("Erro ao conectar ao banco:", err.message);
-});
+async function startServer(): Promise<void> {
+  try {
+    await pool.query("SELECT NOW()");
+    console.log("Banco de dados conectado com sucesso.");
+  } catch (err) {
+    console.error("Erro ao conectar ao banco de dados:", err);
+    process.exit(1);
+  }
 
-app.listen(PORT, () => {
-  console.log(`Servidor FINANCE rodando em http://localhost:${PORT}`);
-});
+  app.listen(PORT, () => {
+    console.log(`Servidor FINANCE rodando em http://localhost:${PORT}`);
+  });
+}
+
+startServer();
