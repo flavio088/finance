@@ -1,0 +1,3 @@
+-- Não há dados de seed necessários.
+-- Crie sua conta pelo sistema de cadastro em /register.html
+-- O banco de dados será populado conforme você usa o sistema.
