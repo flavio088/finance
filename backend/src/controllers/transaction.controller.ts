@@ -2,6 +2,7 @@ import { Response } from "express";
 import { AuthenticatedRequest } from "../models/auth.model.js";
 import { createTransactionService, getTransactionsService } from "../services/transaction.service.js";
 import { TransactionType, PaymentMethod } from "../models/transaction.model.js";
+import { validateTransaction } from "../utils/validation.js";
 
 export async function createTransaction(
   req: AuthenticatedRequest,
@@ -14,12 +15,14 @@ export async function createTransaction(
     return;
   }
 
-  const { type, amount, description, paymentMethod, date } = req.body;
+  const validation = validateTransaction(req.body);
 
-  if (!type || !amount || !description || !date) {
-    res.status(400).json({ error: "Tipo, valor, descrição e data são obrigatórios." });
+  if (!validation.valid) {
+    res.status(400).json({ errors: validation.errors });
     return;
   }
+
+  const { type, amount, description, paymentMethod, date } = req.body;
 
   try {
     const transaction = await createTransactionService({

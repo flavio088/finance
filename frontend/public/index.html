@@ -1,55 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FINANCE — Login</title>
-    <link rel="stylesheet" href="css/main.css" />
-  </head>
-  <body>
-    <main>
-      <div class="login-card">
-        <h1 class="login-card__title">FINANCE</h1>
-        <p class="login-card__subtitle">Entre na sua conta</p>
 
-        <form id="login-form" novalidate>
-          <div class="form-group">
-            <label for="email">E-mail</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="seu@email.com"
-              autocomplete="email"
-              required
-            />
-            <span class="error-message" id="email-error">
-              Informe um e-mail válido.
-            </span>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FINANCE — Login</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
 
-          <div class="form-group">
-            <label for="password">Senha</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="••••••••"
-              autocomplete="current-password"
-              required
-            />
-            <span class="error-message" id="password-error">
-              Informe sua senha.
-            </span>
-          </div>
+<body>
+  <main>
+    <div class="login-card">
+      <h1 class="login-card__title">FINANCE</h1>
+      <p class="login-card__subtitle">Entre na sua conta</p>
+      <p class="register-success" id="register-success" style="
+            display: none;
+            color: #16a34a;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+          ">
+        Conta criada com sucesso! Faça login.
+      </p>
 
-          <button type="submit" class="btn-primary-custom" id="login-btn">
-            Entrar
-          </button>
-        </form>
-      </div>
-    </main>
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email" required />
+          <span class="error-message" id="email-error">
+            Informe um e-mail válido.
+          </span>
+        </div>
 
-    <script type="module" src="js/main.js"></script>
-  </body>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password"
+            required />
+          <span class="error-message" id="password-error">
+            Informe sua senha.
+          </span>
+        </div>
+
+        <button type="submit" class="btn-primary-custom" id="login-btn">
+          Entrar
+        </button>
+      </form>
+      <p style="text-align: center; margin-top: 1rem; font-size: 0.875rem; color: #64748b;">
+        Não tem conta?
+        <a href="/register.html" style="color: #1a2f6e; font-weight: 500;">Criar conta</a>
+      </p>
+    </div>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+
 </html>

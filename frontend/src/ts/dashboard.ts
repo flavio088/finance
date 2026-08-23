@@ -257,3 +257,4 @@ async function loadHistory(): Promise<void> {
 // Carregar histórico ao clicar na aba
 document.querySelector<HTMLButtonElement>('.sidebar__link[data-page="history"]')
   ?.addEventListener("click", loadHistory);
+  export {};

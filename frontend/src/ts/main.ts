@@ -75,4 +75,12 @@ async function handleLogin(event: SubmitEvent): Promise<void> {
   }
 }
 
+const params = new URLSearchParams(window.location.search);
+const successMsg = document.getElementById("register-success");
+if (params.get("registered") === "true" && successMsg) {
+  successMsg.style.display = "block";
+}
+
 form.addEventListener("submit", handleLogin);
+
+export {};
