@@ -1,28 +1,68 @@
 # FINANCE
 
-Sistema de controle financeiro pessoal.
-
-Permite registrar entradas e saídas financeiras com histórico persistente.
+Sistema de controle financeiro pessoal. Permite registrar entradas e saídas, escolher forma de pagamento e acompanhar o saldo ao longo do tempo.
 
 ## Stack
 
-**Frontend**
-- HTML
-- Sass
-- Bootstrap
-- TypeScript
+**Backend:** Node.js, TypeScript, Express, PostgreSQL (Neon), Effect.ts  
+**Frontend:** HTML, Sass, TypeScript  
+**Testes:** Vitest  
+**Versionamento:** Git, GitHub
 
-**Backend**
-- Node.js
-- TypeScript
+## Funcionalidades
 
-**Banco de dados**
-- PostgreSQL
+- Cadastro e autenticação de usuários com JWT
+- Registro de entradas de dinheiro (valor, descrição, data)
+- Registro de saídas (valor, descrição, data, forma de pagamento)
+- Histórico de transações com saldo calculado
+- Cada usuário vê apenas seus próprios dados
 
-## Status
+## Como rodar localmente
 
-🚧 Em desenvolvimento
+### Pré-requisitos
 
-## Como executar
+- Node.js 20+
+- Conta gratuita no [Neon](https://neon.tech) para o banco de dados
 
-Instruções de instalação serão adicionadas conforme o projeto avança.
+### Backend
+
+```bash
+cd backend
+npm install
+cp .env.example .env
+# Edite o .env com sua DATABASE_URL do Neon e um JWT_SECRET de sua escolha
+npm run dev
+```
+
+### Banco de dados
+
+No painel do Neon, abra o SQL Editor e execute o conteúdo de `backend/src/database/schema.sql`.
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run build
+npx serve public -p 3000
+```
+
+Acesse `http://localhost:3000`.
+
+## Testes
+
+```bash
+cd backend
+npm test
+```
+
+17 testes cobrindo validações e lógica de autenticação com Effect.ts.
+
+
+## Variáveis de ambiente
+
+| Variável | Descrição |
+|----------|-----------|
+| `PORT` | Porta do servidor (padrão: 3001) |
+| `DATABASE_URL` | Connection string do PostgreSQL |
+| `JWT_SECRET` | Chave para assinar os tokens JWT |
