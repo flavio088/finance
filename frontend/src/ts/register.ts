@@ -4,8 +4,12 @@ const emailInput = document.getElementById("email") as HTMLInputElement;
 const passwordInput = document.getElementById("password") as HTMLInputElement;
 const nameError = document.getElementById("name-error") as HTMLSpanElement;
 const emailError = document.getElementById("email-error") as HTMLSpanElement;
-const passwordError = document.getElementById("password-error") as HTMLSpanElement;
-const registerBtn = document.getElementById("register-btn") as HTMLButtonElement;
+const passwordError = document.getElementById(
+  "password-error",
+) as HTMLSpanElement;
+const registerBtn = document.getElementById(
+  "register-btn",
+) as HTMLButtonElement;
 
 function clearErrors(): void {
   [nameError, emailError, passwordError].forEach((el) => {
@@ -44,7 +48,8 @@ form.addEventListener("submit", async (event: SubmitEvent) => {
         data.errors.forEach((err: { field: string; message: string }) => {
           if (err.field === "name") showFieldError(nameError, err.message);
           if (err.field === "email") showFieldError(emailError, err.message);
-          if (err.field === "password") showFieldError(passwordError, err.message);
+          if (err.field === "password")
+            showFieldError(passwordError, err.message);
         });
       } else {
         showFieldError(emailError, data.error ?? "Erro ao criar conta.");
@@ -52,8 +57,7 @@ form.addEventListener("submit", async (event: SubmitEvent) => {
       return;
     }
 
-    window.location.href = "/index.html?registered=true";
-
+    window.location.href = "/?registered=true";
   } catch {
     showFieldError(emailError, "Não foi possível conectar ao servidor.");
   } finally {
