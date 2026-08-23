@@ -146,16 +146,36 @@
   </div>
 </section>
 
-        <!-- Página: Histórico-->
-        <section id="page-history" style="display:none">
-          <div class="page-header">
-            <h1 class="page-header__title">Histórico</h1>
-            <p class="page-header__subtitle">Seus lançamentos</p>
-          </div>
-          <div class="card">
-            <p style="color: var(--color-text-muted)">Em construção...</p>
-          </div>
-        </section>
+<!-- Página: Histórico -->
+<section id="page-history" style="display:none">
+  <div class="page-header">
+    <h1 class="page-header__title">Histórico</h1>
+    <p class="page-header__subtitle">Seus lançamentos</p>
+  </div>
+
+  <!-- Cards de resumo -->
+  <div class="history-summary">
+    <div class="summary-card">
+      <div class="summary-card__label">Saldo atual</div>
+      <div class="summary-card__value" id="summary-balance">R$ 0,00</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-card__label">Total de entradas</div>
+      <div class="summary-card__value summary-card__value--positive" id="summary-income">R$ 0,00</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-card__label">Total de saídas</div>
+      <div class="summary-card__value summary-card__value--negative" id="summary-expense">R$ 0,00</div>
+    </div>
+  </div>
+
+  <!-- Tabela de transações -->
+  <div class="card">
+    <div id="history-content">
+      <div class="empty-state">Carregando...</div>
+    </div>
+  </div>
+</section>
 
       </main>
     </div>

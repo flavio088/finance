@@ -51,7 +51,7 @@
   }
 }
 
-// Botão de submit do formulário
+// Botão de submit
 .btn-submit {
   padding: 0.675rem 2rem;
   background-color: $color-primary;
@@ -72,10 +72,6 @@
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-  }
-
-  &--success {
-    background-color: $color-success;
   }
 }
 
@@ -102,4 +98,109 @@
     color: $color-danger;
     border: 1px solid rgba(220, 38, 38, 0.2);
   }
+}
+
+// Resumo financeiro
+.history-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.summary-card {
+  background-color: $color-surface;
+  border-radius: $border-radius;
+  padding: 1.25rem;
+  border: 1px solid $color-border;
+
+  &__label {
+    font-size: 0.8rem;
+    color: $color-text-muted;
+    margin-bottom: 0.5rem;
+  }
+
+  &__value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $color-text;
+
+    &--positive {
+      color: $color-success;
+    }
+
+    &--negative {
+      color: $color-danger;
+    }
+  }
+}
+
+// Tabela de histórico
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+
+  th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    color: $color-text-muted;
+    font-weight: 500;
+    border-bottom: 1px solid $color-border;
+  }
+
+  td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid $color-border;
+    color: $color-text;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover td {
+    background-color: $color-bg;
+  }
+}
+
+.transaction-type {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  &--income {
+    background-color: rgba(22, 163, 74, 0.1);
+    color: $color-success;
+  }
+
+  &--expense {
+    background-color: rgba(220, 38, 38, 0.1);
+    color: $color-danger;
+  }
+}
+
+.transaction-amount {
+  font-weight: 600;
+
+  &--income {
+    color: $color-success;
+  }
+
+  &--expense {
+    color: $color-danger;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: $color-text-muted;
+  font-size: 0.9rem;
 }

@@ -17,3 +17,13 @@ export async function createTransaction(data: CreateTransactionDTO): Promise<Tra
   );
   return result.rows[0];
 }
+
+export async function findTransactionsByUserId(userId: string): Promise<Transaction[]> {
+  const result = await pool.query<Transaction>(
+    `SELECT * FROM transactions
+     WHERE user_id = $1
+     ORDER BY date DESC, created_at DESC`,
+    [userId]
+  );
+  return result.rows;
+}

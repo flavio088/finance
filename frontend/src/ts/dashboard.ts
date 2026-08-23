@@ -157,3 +157,103 @@ expenseForm.addEventListener("submit", async (event: SubmitEvent) => {
     expenseBtn.textContent = "Registrar saída";
   }
 });
+// Utilitário de formatação de moeda
+function formatCurrency(value: number): string {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+}
+
+// Utilitário de formatação de data
+function formatDate(dateStr: string): string {
+  const [year, month, day] = dateStr.split("T")[0].split("-");
+  return `${day}/${month}/${year}`;
+}
+
+// Mapa de forma de pagamento
+const paymentLabels: Record<string, string> = {
+  debit: "Débito",
+  credit: "Crédito",
+  pix: "PIX",
+  cash: "Dinheiro",
+};
+
+// Carregar histórico
+async function loadHistory(): Promise<void> {
+  const historyContent = document.getElementById("history-content") as HTMLDivElement;
+  const summaryBalance = document.getElementById("summary-balance") as HTMLDivElement;
+  const summaryIncome = document.getElementById("summary-income") as HTMLDivElement;
+  const summaryExpense = document.getElementById("summary-expense") as HTMLDivElement;
+
+  try {
+    const response = await fetch("http://localhost:3001/transactions", {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      historyContent.innerHTML = `<div class="empty-state">Erro ao carregar histórico.</div>`;
+      return;
+    }
+
+    // Atualizar cards de resumo
+    summaryBalance.textContent = formatCurrency(data.balance);
+    summaryBalance.className = `summary-card__value ${data.balance >= 0 ? "summary-card__value--positive" : "summary-card__value--negative"}`;
+    summaryIncome.textContent = formatCurrency(data.totalIncome);
+    summaryExpense.textContent = formatCurrency(data.totalExpense);
+
+    // Renderizar tabela
+    if (data.transactions.length === 0) {
+      historyContent.innerHTML = `<div class="empty-state">Nenhuma transação registrada ainda.</div>`;
+      return;
+    }
+
+    historyContent.innerHTML = `
+      <table class="transactions-table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Tipo</th>
+            <th>Pagamento</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.transactions.map((t: {
+            type: string;
+            date: string;
+            description: string;
+            payment_method: string | null;
+            amount: number;
+          }) => `
+            <tr>
+              <td>${formatDate(t.date)}</td>
+              <td>${t.description}</td>
+              <td>
+                <span class="transaction-type transaction-type--${t.type}">
+                  ${t.type === "income" ? "Entrada" : "Saída"}
+                </span>
+              </td>
+              <td>${t.payment_method ? paymentLabels[t.payment_method] : "—"}</td>
+              <td class="transaction-amount transaction-amount--${t.type}">
+                ${t.type === "income" ? "+" : "-"} ${formatCurrency(Number(t.amount))}
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    `;
+
+  } catch {
+    historyContent.innerHTML = `<div class="empty-state">Não foi possível conectar ao servidor.</div>`;
+  }
+}
+
+// Carregar histórico ao clicar na aba
+document.querySelector<HTMLButtonElement>('.sidebar__link[data-page="history"]')
+  ?.addEventListener("click", loadHistory);

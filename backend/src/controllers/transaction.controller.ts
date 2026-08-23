@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { AuthenticatedRequest } from "../models/auth.model.js";
-import { createTransactionService } from "../services/transaction.service.js";
+import { createTransactionService, getTransactionsService } from "../services/transaction.service.js";
 import { TransactionType, PaymentMethod } from "../models/transaction.model.js";
 
 export async function createTransaction(
@@ -37,6 +37,26 @@ export async function createTransaction(
       res.status(400).json({ error: err.message });
       return;
     }
+    res.status(500).json({ error: "Erro interno do servidor." });
+  }
+}
+
+export async function getTransactions(
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> {
+  const userId = req.userId;
+
+  if (!userId) {
+    res.status(401).json({ error: "Usuário não autenticado." });
+    return;
+  }
+
+  try {
+    const data = await getTransactionsService(userId);
+    res.status(200).json(data);
+  } catch (err) {
+    console.error("Erro ao buscar transações:", err);
     res.status(500).json({ error: "Erro interno do servidor." });
   }
 }
