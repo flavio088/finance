@@ -66,3 +66,7 @@ npm test
 | `PORT` | Porta do servidor (padrão: 3001) |
 | `DATABASE_URL` | Connection string do PostgreSQL |
 | `JWT_SECRET` | Chave para assinar os tokens JWT |
+
+![Tests](https://img.shields.io/badge/tests-17%20passing-brightgreen)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
+![Node](https://img.shields.io/badge/Node.js-20%2B-green)
