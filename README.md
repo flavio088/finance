@@ -2,6 +2,12 @@
 
 Sistema de controle financeiro pessoal. Permite registrar entradas e saídas, escolher forma de pagamento e acompanhar o saldo ao longo do tempo.
 
+![Login](image.png)
+![Adicionar valor](image-1.png)
+![Retirar valor](image-2.png)
+![Historico](image-3.png)
+
+
 ## Stack
 
 **Backend:** Node.js, TypeScript, Express, PostgreSQL (Neon), Effect.ts  
