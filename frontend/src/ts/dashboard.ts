@@ -1,3 +1,5 @@
+const API_URL = "https://finance-production-d756.up.railway.app";
+
 const token = localStorage.getItem("token");
 if (!token) {
   window.location.href = "/index.html";
@@ -71,7 +73,7 @@ incomeForm.addEventListener("submit", async (event: SubmitEvent) => {
   incomeBtn.textContent = "Registrando...";
 
   try {
-    const response = await fetch("http://localhost:3001/transactions", {
+    const response = await fetch("${API_URL}/transactions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -187,7 +189,7 @@ async function loadHistory(): Promise<void> {
   const summaryExpense = document.getElementById("summary-expense") as HTMLDivElement;
 
   try {
-    const response = await fetch("http://localhost:3001/transactions", {
+    const response = await fetch("${API_URL}/transactions", {
       headers: {
         "Authorization": `Bearer ${token}`,
       },

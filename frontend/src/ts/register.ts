@@ -4,6 +4,8 @@ const emailInput = document.getElementById("email") as HTMLInputElement;
 const passwordInput = document.getElementById("password") as HTMLInputElement;
 const nameError = document.getElementById("name-error") as HTMLSpanElement;
 const emailError = document.getElementById("email-error") as HTMLSpanElement;
+const API_URL = "https://finance-production-d756.up.railway.app";
+
 const passwordError = document.getElementById(
   "password-error",
 ) as HTMLSpanElement;
@@ -31,7 +33,7 @@ form.addEventListener("submit", async (event: SubmitEvent) => {
   registerBtn.textContent = "Criando conta...";
 
   try {
-    const response = await fetch("http://localhost:3001/auth/register", {
+    const response = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

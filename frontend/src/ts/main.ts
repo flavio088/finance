@@ -4,6 +4,7 @@ const passwordInput = document.getElementById("password") as HTMLInputElement;
 const emailError = document.getElementById("email-error") as HTMLSpanElement;
 const passwordError = document.getElementById("password-error") as HTMLSpanElement;
 const loginBtn = document.getElementById("login-btn") as HTMLButtonElement;
+const API_URL = "https://finance-production-d756.up.railway.app";
 
 function showError(element: HTMLSpanElement): void {
   element.classList.add("error-message--visible");
@@ -42,7 +43,7 @@ async function handleLogin(event: SubmitEvent): Promise<void> {
   loginBtn.textContent = "Entrando...";
 
   try {
-    const response = await fetch("http://localhost:3001/auth/login", {
+    const response = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
