@@ -1,5 +1,17 @@
 const API_URL = "https://finance-production-d756.up.railway.app";
 
+const hamburgerBtn = document.getElementById("hamburger-btn");
+const sidebar = document.querySelector<HTMLElement>(".sidebar");
+const overlay = document.getElementById("sidebar-overlay");
+
+function toggleSidebar(): void {
+  sidebar?.classList.toggle("sidebar--open");
+  overlay?.classList.toggle("sidebar-overlay--visible");
+}
+
+hamburgerBtn?.addEventListener("click", toggleSidebar);
+overlay?.addEventListener("click", toggleSidebar);
+
 const token = localStorage.getItem("token");
 if (!token) {
   window.location.href = "/index.html";
