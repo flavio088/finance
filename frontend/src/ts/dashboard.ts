@@ -1,5 +1,3 @@
-const API_URL = "https://finance-production-d756.up.railway.app";
-
 const hamburgerBtn = document.getElementById("hamburger-btn");
 const sidebar = document.querySelector<HTMLElement>(".sidebar");
 const overlay = document.getElementById("sidebar-overlay");
@@ -12,13 +10,17 @@ function toggleSidebar(): void {
 hamburgerBtn?.addEventListener("click", toggleSidebar);
 overlay?.addEventListener("click", toggleSidebar);
 
+const API_URL = "https://finance-production-d756.up.railway.app";
+
 const token = localStorage.getItem("token");
 if (!token) {
   window.location.href = "/index.html";
 }
 
 // Navegação entre páginas
-const navLinks = document.querySelectorAll<HTMLButtonElement>(".sidebar__link[data-page]");
+const navLinks = document.querySelectorAll<HTMLButtonElement>(
+  ".sidebar__link[data-page]",
+);
 const pages = document.querySelectorAll<HTMLElement>("section[id^='page-']");
 
 function showPage(pageId: string): void {
@@ -34,7 +36,7 @@ function showPage(pageId: string): void {
   if (targetPage) targetPage.style.display = "block";
 
   const activeLink = document.querySelector<HTMLButtonElement>(
-    `.sidebar__link[data-page="${pageId}"]`
+    `.sidebar__link[data-page="${pageId}"]`,
   );
   if (activeLink) activeLink.classList.add("sidebar__link--active");
 }
@@ -55,7 +57,11 @@ logoutBtn.addEventListener("click", () => {
 });
 
 // Utilitário de feedback
-function showFeedback(element: HTMLElement, message: string, type: "success" | "error"): void {
+function showFeedback(
+  element: HTMLElement,
+  message: string,
+  type: "success" | "error",
+): void {
   element.textContent = message;
   element.className = `feedback-message feedback-message--visible feedback-message--${type}`;
 
@@ -66,15 +72,21 @@ function showFeedback(element: HTMLElement, message: string, type: "success" | "
 
 // Formulário de entradas
 const incomeForm = document.getElementById("income-form") as HTMLFormElement;
-const incomeFeedback = document.getElementById("income-feedback") as HTMLDivElement;
+const incomeFeedback = document.getElementById(
+  "income-feedback",
+) as HTMLDivElement;
 const incomeBtn = document.getElementById("income-btn") as HTMLButtonElement;
 
 incomeForm.addEventListener("submit", async (event: SubmitEvent) => {
   event.preventDefault();
 
-  const amount = (document.getElementById("income-amount") as HTMLInputElement).value;
-  const date = (document.getElementById("income-date") as HTMLInputElement).value;
-  const description = (document.getElementById("income-description") as HTMLInputElement).value;
+  const amount = (document.getElementById("income-amount") as HTMLInputElement)
+    .value;
+  const date = (document.getElementById("income-date") as HTMLInputElement)
+    .value;
+  const description = (
+    document.getElementById("income-description") as HTMLInputElement
+  ).value;
 
   if (!amount || !date || !description) {
     showFeedback(incomeFeedback, "Preencha todos os campos.", "error");
@@ -89,7 +101,7 @@ incomeForm.addEventListener("submit", async (event: SubmitEvent) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         type: "income",
@@ -102,15 +114,22 @@ incomeForm.addEventListener("submit", async (event: SubmitEvent) => {
     const data = await response.json();
 
     if (!response.ok) {
-      showFeedback(incomeFeedback, data.error ?? "Erro ao registrar entrada.", "error");
+      showFeedback(
+        incomeFeedback,
+        data.error ?? "Erro ao registrar entrada.",
+        "error",
+      );
       return;
     }
 
     showFeedback(incomeFeedback, "Entrada registrada com sucesso!", "success");
     incomeForm.reset();
-
   } catch {
-    showFeedback(incomeFeedback, "Não foi possível conectar ao servidor.", "error");
+    showFeedback(
+      incomeFeedback,
+      "Não foi possível conectar ao servidor.",
+      "error",
+    );
   } finally {
     incomeBtn.disabled = false;
     incomeBtn.textContent = "Registrar entrada";
@@ -119,16 +138,24 @@ incomeForm.addEventListener("submit", async (event: SubmitEvent) => {
 
 // Formulário de saídas
 const expenseForm = document.getElementById("expense-form") as HTMLFormElement;
-const expenseFeedback = document.getElementById("expense-feedback") as HTMLDivElement;
+const expenseFeedback = document.getElementById(
+  "expense-feedback",
+) as HTMLDivElement;
 const expenseBtn = document.getElementById("expense-btn") as HTMLButtonElement;
 
 expenseForm.addEventListener("submit", async (event: SubmitEvent) => {
   event.preventDefault();
 
-  const amount = (document.getElementById("expense-amount") as HTMLInputElement).value;
-  const date = (document.getElementById("expense-date") as HTMLInputElement).value;
-  const description = (document.getElementById("expense-description") as HTMLInputElement).value;
-  const paymentMethod = (document.getElementById("expense-payment") as HTMLSelectElement).value;
+  const amount = (document.getElementById("expense-amount") as HTMLInputElement)
+    .value;
+  const date = (document.getElementById("expense-date") as HTMLInputElement)
+    .value;
+  const description = (
+    document.getElementById("expense-description") as HTMLInputElement
+  ).value;
+  const paymentMethod = (
+    document.getElementById("expense-payment") as HTMLSelectElement
+  ).value;
 
   if (!amount || !date || !description || !paymentMethod) {
     showFeedback(expenseFeedback, "Preencha todos os campos.", "error");
@@ -143,7 +170,7 @@ expenseForm.addEventListener("submit", async (event: SubmitEvent) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         type: "expense",
@@ -157,15 +184,22 @@ expenseForm.addEventListener("submit", async (event: SubmitEvent) => {
     const data = await response.json();
 
     if (!response.ok) {
-      showFeedback(expenseFeedback, data.error ?? "Erro ao registrar saída.", "error");
+      showFeedback(
+        expenseFeedback,
+        data.error ?? "Erro ao registrar saída.",
+        "error",
+      );
       return;
     }
 
     showFeedback(expenseFeedback, "Saída registrada com sucesso!", "success");
     expenseForm.reset();
-
   } catch {
-    showFeedback(expenseFeedback, "Não foi possível conectar ao servidor.", "error");
+    showFeedback(
+      expenseFeedback,
+      "Não foi possível conectar ao servidor.",
+      "error",
+    );
   } finally {
     expenseBtn.disabled = false;
     expenseBtn.textContent = "Registrar saída";
@@ -195,15 +229,23 @@ const paymentLabels: Record<string, string> = {
 
 // Carregar histórico
 async function loadHistory(): Promise<void> {
-  const historyContent = document.getElementById("history-content") as HTMLDivElement;
-  const summaryBalance = document.getElementById("summary-balance") as HTMLDivElement;
-  const summaryIncome = document.getElementById("summary-income") as HTMLDivElement;
-  const summaryExpense = document.getElementById("summary-expense") as HTMLDivElement;
+  const historyContent = document.getElementById(
+    "history-content",
+  ) as HTMLDivElement;
+  const summaryBalance = document.getElementById(
+    "summary-balance",
+  ) as HTMLDivElement;
+  const summaryIncome = document.getElementById(
+    "summary-income",
+  ) as HTMLDivElement;
+  const summaryExpense = document.getElementById(
+    "summary-expense",
+  ) as HTMLDivElement;
 
   try {
     const response = await fetch("${API_URL}/transactions", {
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -238,13 +280,15 @@ async function loadHistory(): Promise<void> {
           </tr>
         </thead>
         <tbody>
-          ${data.transactions.map((t: {
-            type: string;
-            date: string;
-            description: string;
-            payment_method: string | null;
-            amount: number;
-          }) => `
+          ${data.transactions
+            .map(
+              (t: {
+                type: string;
+                date: string;
+                description: string;
+                payment_method: string | null;
+                amount: number;
+              }) => `
             <tr>
               <td>${formatDate(t.date)}</td>
               <td>${t.description}</td>
@@ -258,17 +302,19 @@ async function loadHistory(): Promise<void> {
                 ${t.type === "income" ? "+" : "-"} ${formatCurrency(Number(t.amount))}
               </td>
             </tr>
-          `).join("")}
+          `,
+            )
+            .join("")}
         </tbody>
       </table>
     `;
-
   } catch {
     historyContent.innerHTML = `<div class="empty-state">Não foi possível conectar ao servidor.</div>`;
   }
 }
 
 // Carregar histórico ao clicar na aba
-document.querySelector<HTMLButtonElement>('.sidebar__link[data-page="history"]')
+document
+  .querySelector<HTMLButtonElement>('.sidebar__link[data-page="history"]')
   ?.addEventListener("click", loadHistory);
-  export {};
+export {};
