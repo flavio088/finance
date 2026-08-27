@@ -72,7 +72,10 @@
 .main-content {
   margin-left: 240px;
   flex: 1;
+  min-width: 0;
+  width: 100%;
   padding: 2rem;
+  box-sizing: border-box;
 }
 
 // Cabeçalho da página
@@ -140,8 +143,10 @@
 
 // Responsivo
 @media (max-width: 768px) {
-    .mobile-header {
+
+  .mobile-header {
     display: flex;
+
     align-items: center;
     justify-content: space-between;
 
@@ -165,6 +170,48 @@
       font-weight: 600;
       font-size: 1.1rem;
     }
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 1.25rem;
+    padding-top: 5rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .transaction-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-group {
+    width: 100%;
+    min-width: 0;
+
+    input,
+    select {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  .btn-submit {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .history-summary {
+    grid-template-columns: 1fr;
   }
 
   // ----------------------------------------
