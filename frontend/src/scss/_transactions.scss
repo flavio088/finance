@@ -1,15 +1,10 @@
 @use 'variables' as *;
 
-// Formulário de transação
 .transaction-form {
   &__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.25rem;
-
-    @media (max-width: 600px) {
-      grid-template-columns: 1fr;
-    }
   }
 
   &__full {
@@ -17,11 +12,11 @@
   }
 }
 
-// Grupo de campos
 .field-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-width: 0;
 
   label {
     font-size: 0.875rem;
@@ -31,13 +26,19 @@
 
   input,
   select {
+    width: 100%;
+    box-sizing: border-box;
+
     padding: 0.625rem 0.875rem;
+
     background-color: $color-bg;
     border: 1px solid $color-border;
     border-radius: $border-radius-sm;
+
     color: $color-text;
     font-size: $font-size-base;
     font-family: $font-family;
+
     transition: border-color 0.2s;
 
     &:focus {
@@ -51,18 +52,23 @@
   }
 }
 
-// Botão de submit
 .btn-submit {
   padding: 0.675rem 2rem;
+
   background-color: $color-primary;
   color: $color-text-light;
+
   border: none;
   border-radius: $border-radius-sm;
+
   font-size: $font-size-base;
   font-weight: 500;
   font-family: $font-family;
+
   cursor: pointer;
+
   transition: background-color 0.2s;
+
   margin-top: 0.5rem;
 
   &:hover {
@@ -75,12 +81,15 @@
   }
 }
 
-// Mensagem de feedback
 .feedback-message {
   padding: 0.75rem 1rem;
+
   border-radius: $border-radius-sm;
+
   font-size: 0.875rem;
+
   margin-top: 1rem;
+
   display: none;
 
   &--visible {
@@ -100,22 +109,22 @@
   }
 }
 
-// Resumo financeiro
 .history-summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
 
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
+  gap: 1rem;
+
+  margin-bottom: 1.5rem;
 }
 
 .summary-card {
   background-color: $color-surface;
+
   border-radius: $border-radius;
+
   padding: 1.25rem;
+
   border: 1px solid $color-border;
 
   &__label {
@@ -139,7 +148,6 @@
   }
 }
 
-// Tabela de histórico
 .transactions-table {
   width: 100%;
   border-collapse: collapse;
@@ -147,15 +155,21 @@
 
   th {
     text-align: left;
+
     padding: 0.75rem 1rem;
+
     color: $color-text-muted;
+
     font-weight: 500;
+
     border-bottom: 1px solid $color-border;
   }
 
   td {
     padding: 0.875rem 1rem;
+
     border-bottom: 1px solid $color-border;
+
     color: $color-text;
   }
 
@@ -170,8 +184,11 @@
 
 .transaction-type {
   display: inline-block;
+
   padding: 0.2rem 0.6rem;
+
   border-radius: 999px;
+
   font-size: 0.75rem;
   font-weight: 500;
 
@@ -198,9 +215,52 @@
   }
 }
 
+// ========================================
+// Estado vazio
+// ========================================
+
 .empty-state {
   text-align: center;
+
   padding: 3rem;
+
   color: $color-text-muted;
+
   font-size: 0.9rem;
+}
+
+// ========================================
+// Responsividade
+// ========================================
+
+@media (max-width: 600px) {
+
+  .transaction-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .transaction-form__full {
+    grid-column: auto;
+  }
+
+  .history-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    padding: 1rem;
+
+    &__value {
+      font-size: 1.25rem;
+    }
+  }
+
+  .transactions-table {
+    font-size: 0.8rem;
+
+    th,
+    td {
+      padding: 0.5rem;
+    }
+  }
 }
