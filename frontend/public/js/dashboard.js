@@ -69,7 +69,7 @@ incomeForm.addEventListener("submit", async (event) => {
     incomeBtn.disabled = true;
     incomeBtn.textContent = "Registrando...";
     try {
-        const response = await fetch("${API_URL}/transactions", {
+        const response = await fetch(`${API_URL}/transactions`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -117,7 +117,7 @@ expenseForm.addEventListener("submit", async (event) => {
     expenseBtn.disabled = true;
     expenseBtn.textContent = "Registrando...";
     try {
-        const response = await fetch("http://localhost:3001/transactions", {
+        const response = await fetch(`${API_URL}/transactions`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -173,7 +173,7 @@ async function loadHistory() {
     const summaryIncome = document.getElementById("summary-income");
     const summaryExpense = document.getElementById("summary-expense");
     try {
-        const response = await fetch("${API_URL}/transactions", {
+        const response = await fetch(`${API_URL}/transactions`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
