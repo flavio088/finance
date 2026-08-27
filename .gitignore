@@ -34,4 +34,5 @@ backend/.env
 backend/private.env
 
 # Frontend compilado
+frontend/public/js/
 frontend/public/css/
