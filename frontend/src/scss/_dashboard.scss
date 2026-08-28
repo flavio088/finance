@@ -19,51 +19,89 @@
   top: 0;
   left: 0;
 
+  background: linear-gradient(180deg, #16265a 0%, #1a2f6e 100%);
+  box-shadow: 2px 0 16px rgba(15, 23, 42, 0.12);
+
   &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
     color: $color-text-light;
     padding: 0 1.5rem 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 1rem;
+
+    svg {
+      color: $color-accent-light;
+      flex-shrink: 0;
+    }
   }
 
   &__nav {
     display: flex;
     flex-direction: column;
     flex: 1;
+    gap: 0.25rem;
+    padding: 0 0.75rem;
   }
 
   &__link {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 0.875rem;
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
-    transition: all 0.2s;
+    transition: $transition;
     cursor: pointer;
     border: none;
     background: none;
     width: 100%;
     font-family: $font-family;
+    border-radius: $border-radius-sm;
+
+    svg {
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.08);
       color: $color-text-light;
+      transform: translateX(2px);
     }
 
     &--active {
-      background-color: rgba(255, 255, 255, 0.15);
+      background: $gradient-accent;
       color: $color-text-light;
+      box-shadow: $shadow-sm;
+
+      svg {
+        opacity: 1;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: -0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 60%;
+        border-radius: 4px;
+        background-color: $color-accent-light;
+      }
     }
   }
 
   &__logout {
     margin-top: auto;
-    padding: 1rem 1.5rem 0;
+    padding: 1rem 1.5rem 0.75rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
@@ -84,8 +122,9 @@
 
   &__title {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     color: $color-text;
+    letter-spacing: -0.02em;
   }
 
   &__subtitle {
@@ -101,6 +140,7 @@
   border-radius: $border-radius;
   padding: 1.5rem;
   border: 1px solid $color-border;
+  box-shadow: $shadow-sm;
   margin-bottom: 1.5rem;
 }
 
@@ -166,6 +206,9 @@
     box-sizing: border-box;
 
     &__title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       color: $color-text-light;
       font-weight: 600;
       font-size: 1.1rem;

@@ -31,7 +31,7 @@
 
     padding: 0.625rem 0.875rem;
 
-    background-color: $color-bg;
+    background-color: $color-bg-slate;
     border: 1px solid $color-border;
     border-radius: $border-radius-sm;
 
@@ -39,11 +39,13 @@
     font-size: $font-size-base;
     font-family: $font-family;
 
-    transition: border-color 0.2s;
+    transition: $transition;
 
     &:focus {
       outline: none;
-      border-color: $color-primary;
+      border-color: $color-accent;
+      background-color: $color-surface;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
     }
   }
 
@@ -55,24 +57,28 @@
 .btn-submit {
   padding: 0.675rem 2rem;
 
-  background-color: $color-primary;
+  background: $gradient-primary;
   color: $color-text-light;
 
   border: none;
   border-radius: $border-radius-sm;
 
   font-size: $font-size-base;
-  font-weight: 500;
+  font-weight: 600;
   font-family: $font-family;
 
   cursor: pointer;
 
-  transition: background-color 0.2s;
+  transition: $transition;
 
   margin-top: 0.5rem;
 
-  &:hover {
-    background-color: $color-primary-hover;
+  box-shadow: $shadow-sm;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: $shadow-primary;
+    filter: brightness(1.05);
   }
 
   &:disabled {
@@ -119,13 +125,67 @@
 }
 
 .summary-card {
+  position: relative;
+  overflow: hidden;
   background-color: $color-surface;
-
   border-radius: $border-radius;
-
   padding: 1.25rem;
-
   border: 1px solid $color-border;
+  box-shadow: $shadow-sm;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  transition: $transition;
+
+  &__icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: $border-radius-sm;
+    background-color: rgba(100, 116, 139, 0.1);
+    color: $color-text-muted;
+  }
+
+  &--balance {
+    background: $gradient-primary;
+    border: none;
+
+    .summary-card__label,
+    .summary-card__value,
+    .summary-card__value--positive,
+    .summary-card__value--negative {
+      color: $color-text-light;
+    }
+
+    .summary-card__icon {
+      background-color: rgba(255, 255, 255, 0.16);
+      color: $color-text-light;
+    }
+  }
+
+  &--income {
+    .summary-card__icon {
+      background-color: $color-success-soft;
+      color: $color-success;
+    }
+  }
+
+  &--expense {
+    .summary-card__icon {
+      background-color: $color-danger-soft;
+      color: $color-danger;
+    }
+  }
+
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
 
   &__label {
     font-size: 0.8rem;
@@ -135,8 +195,9 @@
 
   &__value {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     color: $color-text;
+    font-variant-numeric: tabular-nums;
 
     &--positive {
       color: $color-success;
@@ -160,9 +221,18 @@
 
     color: $color-text-muted;
 
-    font-weight: 500;
+    font-weight: 600;
 
+    background-color: $color-bg-slate;
     border-bottom: 1px solid $color-border;
+  }
+
+  th:first-child {
+    border-top-left-radius: $border-radius-sm;
+  }
+
+  th:last-child {
+    border-top-right-radius: $border-radius-sm;
   }
 
   td {
@@ -171,6 +241,7 @@
     border-bottom: 1px solid $color-border;
 
     color: $color-text;
+    transition: background-color 0.15s ease;
   }
 
   tr:last-child td {
@@ -178,7 +249,7 @@
   }
 
   tr:hover td {
-    background-color: $color-bg;
+    background-color: $color-bg-slate;
   }
 }
 
@@ -205,6 +276,7 @@
 
 .transaction-amount {
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
 
   &--income {
     color: $color-success;

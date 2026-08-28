@@ -2,7 +2,7 @@
 @use 'dashboard';
 @use 'transactions';
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 *,
 *::before,
@@ -19,26 +19,59 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   background-image: url('../images/background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(26, 47, 110, 0.72) 0%,
+      rgba(37, 99, 235, 0.55) 100%
+    );
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 // Card do formulário de login
 .login-card {
   background-color: $color-surface;
-  border-radius: $border-radius;
+  border-radius: $border-radius-lg;
   padding: 2.5rem;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 8px 32px rgba(26, 47, 110, 0.12);
+  box-shadow: $shadow-lg;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.25rem;
+
+    svg {
+      color: $color-primary;
+      flex-shrink: 0;
+    }
+  }
 
   &__title {
     font-size: 1.75rem;
-    font-weight: 600;
+    font-weight: 700;
     color: $color-primary;
-    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
   }
 
   &__subtitle {
@@ -63,17 +96,19 @@ body {
   input {
     width: 100%;
     padding: 0.625rem 0.875rem;
-    background-color: $color-bg;
+    background-color: $color-bg-slate;
     border: 1px solid $color-border;
     border-radius: $border-radius-sm;
     color: $color-text;
     font-size: $font-size-base;
     font-family: $font-family;
-    transition: border-color 0.2s;
+    transition: $transition;
 
     &:focus {
       outline: none;
-      border-color: $color-primary;
+      border-color: $color-accent;
+      background-color: $color-surface;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
     }
 
     &::placeholder {
@@ -98,19 +133,22 @@ body {
 .btn-primary-custom {
   width: 100%;
   padding: 0.675rem;
-  background-color: $color-primary;
+  background: $gradient-primary;
   color: $color-text-light;
   border: none;
   border-radius: $border-radius-sm;
   font-size: $font-size-base;
-  font-weight: 500;
+  font-weight: 600;
   font-family: $font-family;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: $transition;
   margin-top: 0.5rem;
+  box-shadow: $shadow-sm;
 
-  &:hover {
-    background-color: $color-primary-hover;
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: $shadow-primary;
+    filter: brightness(1.05);
   }
 
   &:disabled {
