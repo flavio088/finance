@@ -223,7 +223,6 @@
     padding: 1.25rem;
     padding-top: 5rem;
     box-sizing: border-box;
-    overflow-x: hidden;
   }
 
   .card {
@@ -417,6 +416,12 @@
 
   .card {
     padding: 1rem;
+  }
+
+  .summary-card {
+    &__value {
+      font-size: 1.15rem;
+    }
   }
 
   .field-group {

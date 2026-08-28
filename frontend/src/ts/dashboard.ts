@@ -269,44 +269,46 @@ async function loadHistory(): Promise<void> {
     }
 
     historyContent.innerHTML = `
-      <table class="transactions-table">
-        <thead>
-          <tr>
-            <th>Data</th>
-            <th>Descrição</th>
-            <th>Tipo</th>
-            <th>Pagamento</th>
-            <th>Valor</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${data.transactions
-            .map(
-              (t: {
-                type: string;
-                date: string;
-                description: string;
-                payment_method: string | null;
-                amount: number;
-              }) => `
+      <div class="table-wrapper">
+        <table class="transactions-table">
+          <thead>
             <tr>
-              <td>${formatDate(t.date)}</td>
-              <td>${t.description}</td>
-              <td>
-                <span class="transaction-type transaction-type--${t.type}">
-                  ${t.type === "income" ? "Entrada" : "Saída"}
-                </span>
-              </td>
-              <td>${t.payment_method ? paymentLabels[t.payment_method] : "—"}</td>
-              <td class="transaction-amount transaction-amount--${t.type}">
-                ${t.type === "income" ? "+" : "-"} ${formatCurrency(Number(t.amount))}
-              </td>
+              <th>Data</th>
+              <th>Descrição</th>
+              <th>Tipo</th>
+              <th>Pagamento</th>
+              <th>Valor</th>
             </tr>
-          `,
-            )
-            .join("")}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            ${data.transactions
+              .map(
+                (t: {
+                  type: string;
+                  date: string;
+                  description: string;
+                  payment_method: string | null;
+                  amount: number;
+                }) => `
+              <tr>
+                <td>${formatDate(t.date)}</td>
+                <td>${t.description}</td>
+                <td>
+                  <span class="transaction-type transaction-type--${t.type}">
+                    ${t.type === "income" ? "Entrada" : "Saída"}
+                  </span>
+                </td>
+                <td>${t.payment_method ? paymentLabels[t.payment_method] : "—"}</td>
+                <td class="transaction-amount transaction-amount--${t.type}">
+                  ${t.type === "income" ? "+" : "-"} ${formatCurrency(Number(t.amount))}
+                </td>
+              </tr>
+            `,
+              )
+              .join("")}
+          </tbody>
+        </table>
+      </div>
     `;
   } catch {
     historyContent.innerHTML = `<div class="empty-state">Não foi possível conectar ao servidor.</div>`;

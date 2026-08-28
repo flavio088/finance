@@ -16,10 +16,15 @@ body {
   font-family: $font-family;
   font-size: $font-size-base;
   min-height: 100vh;
+  background-color: $color-bg;
+}
+
+// Páginas de autenticação (login/cadastro) — fundo com imagem + overlay
+body.auth-page {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   background-image: url('../images/background.jpg');
   background-size: cover;
   background-position: center;

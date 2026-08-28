@@ -122,6 +122,10 @@
   gap: 1rem;
 
   margin-bottom: 1.5rem;
+
+  .summary-card {
+    min-width: 0;
+  }
 }
 
 .summary-card {
@@ -191,6 +195,8 @@
     font-size: 0.8rem;
     color: $color-text-muted;
     margin-bottom: 0.5rem;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   &__value {
@@ -198,6 +204,7 @@
     font-weight: 700;
     color: $color-text;
     font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
 
     &--positive {
       color: $color-success;
@@ -207,6 +214,13 @@
       color: $color-danger;
     }
   }
+}
+
+.table-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .transactions-table {
