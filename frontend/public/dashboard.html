@@ -107,6 +107,20 @@
                   <input type="date" id="income-date" required />
                 </div>
 
+                <div class="field-group">
+                  <label for="income-category">Categoria</label>
+                  <select id="income-category">
+                    <option value="outros">Outros</option>
+                    <option value="salario">Salário</option>
+                    <option value="lazer">Lazer</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="alimentacao">Alimentação</option>
+                    <option value="moradia">Moradia</option>
+                    <option value="saude">Saúde</option>
+                    <option value="educacao">Educação</option>
+                  </select>
+                </div>
+
                 <div class="field-group transaction-form__full">
                   <label for="income-description">Descrição</label>
                   <input
@@ -166,6 +180,19 @@
                 </div>
 
                 <div class="field-group">
+                  <label for="expense-category">Categoria</label>
+                  <select id="expense-category">
+                    <option value="outros">Outros</option>
+                    <option value="alimentacao">Alimentação</option>
+                    <option value="moradia">Moradia</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="lazer">Lazer</option>
+                    <option value="saude">Saúde</option>
+                    <option value="educacao">Educação</option>
+                  </select>
+                </div>
+
+                <div class="field-group">
                   <label for="expense-description">Descrição</label>
                   <input
                     type="text"
@@ -190,6 +217,60 @@
           <div class="page-header">
             <h1 class="page-header__title">Histórico</h1>
             <p class="page-header__subtitle">Seus lançamentos</p>
+          </div>
+
+          <!-- Filtros -->
+          <div class="card filters-card">
+            <div class="filters-grid">
+              <div class="field-group">
+                <label for="filter-month">Período</label>
+                <input type="month" id="filter-month" />
+              </div>
+              <div class="field-group">
+                <label for="filter-type">Tipo</label>
+                <select id="filter-type">
+                  <option value="">Todos</option>
+                  <option value="income">Entradas</option>
+                  <option value="expense">Saídas</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label for="filter-payment">Pagamento</label>
+                <select id="filter-payment">
+                  <option value="">Todos</option>
+                  <option value="debit">Débito</option>
+                  <option value="credit">Crédito</option>
+                  <option value="pix">PIX</option>
+                  <option value="cash">Dinheiro</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label for="filter-category">Categoria</label>
+                <select id="filter-category">
+                  <option value="">Todas</option>
+                  <option value="alimentacao">Alimentação</option>
+                  <option value="moradia">Moradia</option>
+                  <option value="transporte">Transporte</option>
+                  <option value="lazer">Lazer</option>
+                  <option value="saude">Saúde</option>
+                  <option value="educacao">Educação</option>
+                  <option value="salario">Salário</option>
+                  <option value="outros">Outros</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label for="filter-q">Buscar</label>
+                <input type="text" id="filter-q" placeholder="Descrição..." />
+              </div>
+              <div class="filters-actions">
+                <button type="button" class="btn-submit btn-submit--filter" id="filter-apply">
+                  Aplicar
+                </button>
+                <button type="button" class="btn-ghost" id="filter-clear">
+                  Limpar
+                </button>
+              </div>
+            </div>
           </div>
 
           <!-- Cards de resumo -->
@@ -239,13 +320,92 @@
           </div>
 
           <!-- Tabela de transações -->
-          <div class="card">
+          <div class="card history-card">
+            <div class="history-card__header">
+              <h2 class="history-card__title">Lançamentos</h2>
+              <button type="button" class="btn-ghost" id="export-csv">
+                Exportar CSV
+              </button>
+            </div>
             <div id="history-content">
               <div class="empty-state">Carregando...</div>
             </div>
           </div>
+
+          <!-- Gráficos -->
+          <div class="charts-grid">
+            <div class="card chart-card">
+              <h2 class="chart-card__title">Evolução do saldo</h2>
+              <div id="chart-balance" class="chart-container">—</div>
+            </div>
+            <div class="card chart-card">
+              <h2 class="chart-card__title">Gastos por categoria</h2>
+              <div id="chart-category" class="chart-container">—</div>
+            </div>
+          </div>
         </section>
       </main>
+    </div>
+
+    <!-- Modal de edição de transação -->
+    <div class="modal-overlay" id="edit-modal" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title">
+        <div class="modal__header">
+          <h2 class="modal__title" id="edit-modal-title">Editar lançamento</h2>
+          <button type="button" class="modal__close" id="edit-modal-close" aria-label="Fechar">×</button>
+        </div>
+        <form id="edit-form" novalidate>
+          <div class="transaction-form__grid">
+            <div class="field-group">
+              <label for="edit-amount">Valor (R$)</label>
+              <input type="number" id="edit-amount" step="0.01" min="0.01" required />
+            </div>
+            <div class="field-group">
+              <label for="edit-date">Data</label>
+              <input type="date" id="edit-date" required />
+            </div>
+            <div class="field-group">
+              <label for="edit-type">Tipo</label>
+              <select id="edit-type" required>
+                <option value="income">Entrada</option>
+                <option value="expense">Saída</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="edit-payment">Forma de pagamento</label>
+              <select id="edit-payment">
+                <option value="">Selecione...</option>
+                <option value="debit">Débito</option>
+                <option value="credit">Crédito</option>
+                <option value="pix">PIX</option>
+                <option value="cash">Dinheiro</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="edit-category">Categoria</label>
+              <select id="edit-category">
+                <option value="outros">Outros</option>
+                <option value="alimentacao">Alimentação</option>
+                <option value="moradia">Moradia</option>
+                <option value="transporte">Transporte</option>
+                <option value="lazer">Lazer</option>
+                <option value="saude">Saúde</option>
+                <option value="educacao">Educação</option>
+                <option value="salario">Salário</option>
+              </select>
+            </div>
+            <div class="field-group transaction-form__full">
+              <label for="edit-description">Descrição</label>
+              <input type="text" id="edit-description" required />
+            </div>
+          </div>
+          <div class="feedback-message" id="edit-feedback"></div>
+          <div class="modal__actions">
+            <button type="button" class="btn-ghost" id="edit-cancel">Cancelar</button>
+            <button type="submit" class="btn-submit" id="edit-save">Salvar</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <script type="module" src="js/dashboard.js"></script>

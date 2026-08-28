@@ -8,6 +8,17 @@ export interface ValidationResult {
   errors: ValidationError[];
 }
 
+export const CATEGORIES = [
+  "alimentacao",
+  "moradia",
+  "transporte",
+  "lazer",
+  "saude",
+  "educacao",
+  "salario",
+  "outros",
+] as const;
+
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -57,6 +68,7 @@ export function validateTransaction(data: {
   description?: unknown;
   date?: unknown;
   paymentMethod?: unknown;
+  category?: unknown;
 }): ValidationResult {
   const errors: ValidationError[] = [];
 
@@ -79,6 +91,50 @@ export function validateTransaction(data: {
 
   if (data.type === "expense" && !data.paymentMethod) {
     errors.push({ field: "paymentMethod", message: "Forma de pagamento é obrigatória para saídas." });
+  }
+
+  if (
+    data.category != null &&
+    !CATEGORIES.includes(data.category as (typeof CATEGORIES)[number])
+  ) {
+    errors.push({ field: "category", message: "Categoria inválida." });
+  }
+
+  return { valid: errors.length === 0, errors };
+}
+
+export function validateTransactionFilters(data: {
+  type?: unknown;
+  paymentMethod?: unknown;
+  category?: unknown;
+  q?: unknown;
+  startDate?: unknown;
+  endDate?: unknown;
+}): ValidationResult {
+  const errors: ValidationError[] = [];
+
+  if (
+    data.type != null &&
+    data.type !== "" &&
+    !["income", "expense"].includes(data.type as string)
+  ) {
+    errors.push({ field: "type", message: "Tipo de filtro inválido." });
+  }
+
+  if (
+    data.paymentMethod != null &&
+    data.paymentMethod !== "" &&
+    !["debit", "credit", "pix", "cash"].includes(data.paymentMethod as string)
+  ) {
+    errors.push({ field: "paymentMethod", message: "Forma de pagamento de filtro inválida." });
+  }
+
+  if (
+    data.category != null &&
+    data.category !== "" &&
+    !CATEGORIES.includes(data.category as (typeof CATEGORIES)[number])
+  ) {
+    errors.push({ field: "category", message: "Categoria de filtro inválida." });
   }
 
   return { valid: errors.length === 0, errors };

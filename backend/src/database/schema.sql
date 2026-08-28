@@ -20,6 +20,12 @@ CREATE TABLE IF NOT EXISTS transactions (
   payment_method  VARCHAR(20) CHECK (
                     payment_method IN ('debit', 'credit', 'pix', 'cash')
                   ),
+  category        VARCHAR(30) NOT NULL DEFAULT 'outros' CHECK (
+                    category IN (
+                      'alimentacao', 'moradia', 'transporte', 'lazer',
+                      'saude', 'educacao', 'salario', 'outros'
+                    )
+                  ),
   date            DATE NOT NULL,
   created_at      TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

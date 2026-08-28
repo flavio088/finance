@@ -302,6 +302,280 @@
 }
 
 // ========================================
+// Categoria (badge)
+// ========================================
+
+.category-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: rgba(100, 116, 139, 0.12);
+  color: $color-text-muted;
+  white-space: nowrap;
+}
+
+// ========================================
+// Cabeçalho do card de histórico
+// ========================================
+
+.history-card {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: $color-text;
+  }
+}
+
+// ========================================
+// Ações da linha (editar/excluir)
+// ========================================
+
+.actions-col {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.row-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-sm;
+  background-color: $color-surface;
+  color: $color-text-muted;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background-color: $color-bg-slate;
+  }
+
+  &--edit:hover {
+    color: $color-accent;
+    border-color: $color-accent;
+  }
+
+  &--delete:hover {
+    color: $color-danger;
+    border-color: $color-danger;
+  }
+}
+
+// ========================================
+// Filtros
+// ========================================
+
+.filters-card {
+  background-color: $color-bg-slate;
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.filters-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-submit--filter {
+  margin-top: 0;
+  padding: 0.625rem 1.25rem;
+  white-space: nowrap;
+}
+
+.btn-ghost {
+  padding: 0.625rem 1rem;
+  background-color: transparent;
+  color: $color-text-muted;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-base;
+  font-weight: 500;
+  font-family: $font-family;
+  cursor: pointer;
+  transition: $transition;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: $color-bg;
+    color: $color-text;
+  }
+}
+
+// ========================================
+// Modal de edição
+// ========================================
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(15, 23, 42, 0.5);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: $color-surface;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-lg;
+  padding: 1.5rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $color-text;
+  }
+
+  &__close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: $color-text-muted;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      color: $color-danger;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+}
+
+// ========================================
+// Gráficos
+// ========================================
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  &__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $color-text;
+  }
+}
+
+.chart-container {
+  width: 100%;
+  min-height: 120px;
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart-caption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $color-text;
+}
+
+// Gráfico de barras (gastos por categoria)
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.bar-label {
+  font-size: 0.8rem;
+  color: $color-text-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar-track {
+  height: 10px;
+  border-radius: 999px;
+  background-color: $color-bg;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: $gradient-accent;
+  min-width: 2px;
+}
+
+.bar-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: $color-text;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+// ========================================
 // Estado vazio
 // ========================================
 
@@ -348,5 +622,22 @@
     td {
       padding: 0.5rem;
     }
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bar-row {
+    grid-template-columns: 90px 1fr auto;
+  }
+
+  .history-card__header {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }

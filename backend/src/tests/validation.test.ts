@@ -3,6 +3,7 @@ import {
   validateRegister,
   validateLogin,
   validateTransaction,
+  validateTransactionFilters,
 } from "../utils/validation.js";
 
 describe("validateRegister", () => {
@@ -149,5 +150,65 @@ describe("validateTransaction", () => {
     });
     expect(result.valid).toBe(false);
     expect(result.errors.some((e) => e.field === "type")).toBe(true);
+  });
+
+  it("deve aceitar categoria válida", () => {
+    const result = validateTransaction({
+      type: "expense",
+      amount: 500,
+      description: "Supermercado",
+      date: "2026-08-23",
+      paymentMethod: "pix",
+      category: "alimentacao",
+    });
+    expect(result.valid).toBe(true);
+  });
+
+  it("deve rejeitar categoria inválida", () => {
+    const result = validateTransaction({
+      type: "income",
+      amount: 500,
+      description: "Salário",
+      date: "2026-08-23",
+      category: "nao-existe",
+    });
+    expect(result.valid).toBe(false);
+    expect(result.errors.some((e) => e.field === "category")).toBe(true);
+  });
+});
+
+describe("validateTransactionFilters", () => {
+  it("deve retornar válido para filtros vazios", () => {
+    const result = validateTransactionFilters({});
+    expect(result.valid).toBe(true);
+  });
+
+  it("deve aceitar filtros válidos", () => {
+    const result = validateTransactionFilters({
+      type: "income",
+      paymentMethod: "pix",
+      category: "alimentacao",
+      q: "mercado",
+      startDate: "2026-08-01",
+      endDate: "2026-08-31",
+    });
+    expect(result.valid).toBe(true);
+  });
+
+  it("deve rejeitar tipo de filtro inválido", () => {
+    const result = validateTransactionFilters({ type: "invalido" });
+    expect(result.valid).toBe(false);
+    expect(result.errors.some((e) => e.field === "type")).toBe(true);
+  });
+
+  it("deve rejeitar categoria de filtro inválida", () => {
+    const result = validateTransactionFilters({ category: "invalida" });
+    expect(result.valid).toBe(false);
+    expect(result.errors.some((e) => e.field === "category")).toBe(true);
+  });
+
+  it("deve aceitar strings vazias como sem filtro", () => {
+    const result = validateTransactionFilters({ type: "", category: "" });
+    expect(result.valid).toBe(true);
   });
 });
